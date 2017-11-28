@@ -1,0 +1,29 @@
+<apex:page controller="MyController" docType="HTML-5.0">
+    <h1>FTest</h1>
+    <apex:form >
+        <apex:pageBlock >         
+            <apex:inputText value="{!hotelName}" id="hotelInputValue"/>
+            <apex:input value="{!quantity}" id="quantityInputValue" type="number"/>
+            <apex:input value="{!dateFrom}" id="dateFromInputValue" type="date"/>
+            <apex:input value="{!dateTo}" id="dateToInputValue" type="date"/>
+            <apex:commandButton value="Search" action="{!searchMe}" rerender="resultBlock" />           
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Applicable prices"  id="resultBlock">
+            <apex:pageBlockTable value="{!results}" var="pr" >
+                <apex:column > 
+                    <apex:inputCheckbox value="{!pr.isChecked}" id="checked"/>
+                </apex:column>
+                <apex:column value="{!pr.price.Room__r.Name}" headervalue="Room Name"/>
+                <apex:column value="{!pr.price.Cost_Value__c}" headervalue="Cost Value"/>
+                <apex:column value="{!pr.costTotalPrice}" headervalue="Cost Total Price" />
+                <apex:column value="{!pr.price.Sell_Value__c}" headervalue="Sell Value"/>
+                <apex:column value="{!pr.sellingTotalPrice}" headervalue="Selling Total Price" />                
+            </apex:pageBlockTable>      
+        </apex:pageBlock>
+        
+        <apex:pageBlock > 
+            <apex:commandButton value="Save To Booked Rooms" action="{!saveToBooked}"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
